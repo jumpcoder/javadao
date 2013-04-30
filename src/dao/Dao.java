@@ -40,18 +40,13 @@ public abstract class Dao<T> {
 	private PreparedStatement pstmt = null;
 	private boolean hasSet = false;
 	private ResultSet rs = null;
-	
-	public Dao(){
+
+
+	protected void setSql(String sql, Object...objects) throws DaoException {
 		try {
 			this.conn = ds.getConnection();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	protected void setSql(String sql, Object...objects) throws DaoException {
-		if(this.conn == null){
-			throw new DaoException("未初始化连接");
+			throw new DaoException("初始化连接失败");
 		}
 		this.sql = sql;
 		try {
